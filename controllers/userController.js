@@ -98,6 +98,9 @@ userControler.login = async (req) => {
         }
 
         // password verification using bcrypt.compare()
+        if (!user.data.password) {
+      return { code: 500, status: false, message: "Password missing in database", data: null };
+    }
         let validPassword = await bcrypt.compare(body.password, user.data.password)
         if (validPassword) {
             return { code: 200, status: true, message: "login success", data: user.data }
