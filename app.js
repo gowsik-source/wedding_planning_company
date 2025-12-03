@@ -6,7 +6,7 @@ const morgan = require("morgan")
 const cors = require("cors")
 const port = 3800
 require("dotenv").config()
-const mongodbUrl = process.env.mongodb_url
+const mongodbUrl = process.env.MONGODB_URI
 
 const userRoute = require("./routes/userRoute")
 const courseRoute = require("./routes/courseRoute")
