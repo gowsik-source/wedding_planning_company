@@ -6,7 +6,6 @@ const contactSchema = new Schema({
     secondName: { type: String, default: null },
     email: { type: String, default: null },
     message: { type: String, default: null },
-    status: { type: Boolean, default: false },
     deleted: { type: Boolean, default: false }
 }, { timestamps: true });
 

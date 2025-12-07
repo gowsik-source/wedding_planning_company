@@ -11,6 +11,7 @@ const mongodbUrl = process.env.MONGODB_URI
 const userRoute = require("./routes/userRoute")
 const courseRoute = require("./routes/courseRoute")
 const contactRoute = require("./routes/contactRoute")
+const footerRoute = require("./routes/footerRoute")
 
 const corsOptions = {
     origin:"*",
@@ -26,6 +27,7 @@ app.use(cors(corsOptions))
 app.use("/user",userRoute)
 app.use("/course",courseRoute)
 app.use("/contact",contactRoute)
+app.use("/footer",footerRoute)
 
 mongoose.connect(mongodbUrl)
 .then(()=>console.log("db connected"))
