@@ -12,13 +12,13 @@ userRoute.post("/create",async(req,res)=>{
 // ------------------------------get
 
 userRoute.get("/get",async(req,res)=>{
-    let result = await userControler.getStudent(req)
+    let result = await userControler.user(req)
     res.status(result.code).send(result)
 })
 
 // ---------------------------------login
 
-userRoute.post("/login",async(req,res)=>{
+userRoute.post("/login", async(req,res)=>{
     let result = await userControler.login(req)
     res.status(result.code).send(result)
 })

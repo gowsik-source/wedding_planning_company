@@ -5,7 +5,10 @@ const mailHelper = require("../helper/mailHelper")
 const template = require("../templates/userTemplate")
 const helper = require("../helper/helper")
 const courseDal = require("../dal/courseDal")
+const tokenHelper = require('../helper/tokenHelper')
 const userControler = new Object()
+require('dotenv').config()
+const secretKey = process.env.SECRETKEY
 
 // ---------------------------------create and email check
 
@@ -65,7 +68,7 @@ userControler.create = async (req, res) => {
 
 userControler.user = async (req) => {
     try {
-        let result = await userDal.getuser(req.query)
+        let result = await userDal.user(req.query)
         if (result) {
             return { code: 200, status: result.status, data: result.data, message: result.message }
         }
@@ -91,7 +94,7 @@ userControler.login = async (req) => {
         }
 
         // to check email is found on database
-        let user = await userDal.emailCheck(body.email)
+        let user = await userDal.emailCheck(body?.email)
         console.log(user, "user")
         if (!user.data) {
             return { code: 400, status: false, message: "Email not found", data: null }
@@ -102,8 +105,11 @@ userControler.login = async (req) => {
       return { code: 500, status: false, message: "Password missing in database", data: null };
     }
         let validPassword = await bcrypt.compare(body.password, user.data.password)
+        console.log(validPassword,"password found")
         if (validPassword) {
-            return { code: 200, status: true, message: "login success", data: user.data }
+            let token = await tokenHelper.generateToken(body.email,secretKey)
+            console.log(token, "token")
+            return { code: 200, status: true, message: "login success", data: user.data, token: token }
         }
         return { code: 400, status: false, message: "incorrect password", data: null }
     }

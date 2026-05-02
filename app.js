@@ -12,6 +12,7 @@ const userRoute = require("./routes/userRoute")
 const courseRoute = require("./routes/courseRoute")
 const contactRoute = require("./routes/contactRoute")
 const footerRoute = require("./routes/footerRoute")
+const authMiddleware = require('./middleware/authMiddleware')
 
 const corsOptions = {
     origin:"*",
@@ -23,6 +24,7 @@ app.use(express.json())
 app.use(bodyParser.json())
 app.use(morgan("dev"))
 app.use(cors(corsOptions))
+app.use(authMiddleware)
 
 app.use("/user",userRoute)
 app.use("/course",courseRoute)
