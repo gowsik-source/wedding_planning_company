@@ -43,18 +43,18 @@ userControler.create = async (req, res) => {
         console.log(create, "user created")
         if (create) {
             // send email to user
-            // let password = await helper.generate(4)
-            // let data = {
-            //     firstName: create.data.firstName,
-            //     secondName: create.data.secondName,
-            //     password : password
-            // }
-            // let templates = await template.registration(data)
-            // let email = await mailHelper.sendMail(create.data.email, "Registration Successfull", templates)
+            let password = await helper.generate(4)
+            let data = {
+                firstName: create.data.firstName,
+                secondName: create.data.secondName,
+                password : password
+            }
+            let templates = await template.registration(data)
+            let email = await mailHelper.sendMail(create.data.email, "Registration Successfull", templates)
 
-            // if (email) {
-            //     console.log("success")
-            // }
+            if (email) {
+                console.log("success")
+            }
 
             return { code: 200, status: create.status, data: create.data, message: "created" }
         }
